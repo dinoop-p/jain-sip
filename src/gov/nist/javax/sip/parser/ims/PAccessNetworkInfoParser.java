@@ -182,25 +182,12 @@ public class PAccessNetworkInfoParser
                 accessNetworkInfo.setAccessType(token.getTokenValue());
                 this.lexer.SPorHT();
                 while (lexer.lookAhead(0) == ';') {
-                    this.lexer.match(';');
-                    this.lexer.SPorHT();
-
-                    try {
-                        NameValue nv = super.nameValue('=');
-                        accessNetworkInfo.setParameter(nv);
-                    } catch (ParseException e) {
-                        this.lexer.SPorHT();
-                        String ext = this.lexer.quotedString();
-                        if (ext == null) {
-                            ext = this.lexer.ttokenGenValue();
-                        } else {
-                            // avoids tokens such as "a=b" to be stripped of quotes and misinterpretend as
-                            // RFC 7913 generic-param when re-encoded
-                            ext = "\"" + ext + "\"";
-                        }
-                        accessNetworkInfo.setExtensionAccessInfo(ext);
-                    }
-                    this.lexer.SPorHT();
+                	 this.lexer.match(';');
+ 		            this.lexer.SPorHT();
+ 		
+ 		            NameValue nv = super.nameValue('=');
+ 		            accessNetworkInfo.setParameter(nv);
+ 		            this.lexer.SPorHT();
                 }
                 accessNetworkInfoList.add(accessNetworkInfo);
                 this.lexer.SPorHT();
